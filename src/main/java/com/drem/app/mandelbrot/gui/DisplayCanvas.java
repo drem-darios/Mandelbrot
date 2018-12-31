@@ -1,3 +1,6 @@
+/**
+ * @author - Drem Darios
+ */
 package com.drem.app.mandelbrot.gui;
 
 import com.drem.app.mandelbrot.math.ComplexNumber;
@@ -19,7 +22,6 @@ public class DisplayCanvas extends Canvas {
         //loops through all the points on the canvas
         for (int x = 0; x < getWidth(); x++) {
             for (int y = 0; y < getHeight(); y++) {
-                colorPosition[x][y] = Color.black;
                 //calculates the real and imaginary location based on the point on the canvas
                 double a = (currentNumber.getReal() - viewSize) + 2 * ((viewSize * x) / getWidth());
                 double b = (currentNumber.getImaginary() + viewSize) - 2 * ((viewSize * y) / getWidth());
@@ -35,7 +37,7 @@ public class DisplayCanvas extends Canvas {
                     c = c.complexAdd((c.complexSquare(c)), z);
 
                     //this will be the point of magnitude
-                    double magZ = c.getPointMag(c);
+                    double magZ = c.getPointMag();
 
                     //if the square root of that point is greater than 2,
                     //break the loop and use that number as in index for colors
@@ -43,12 +45,10 @@ public class DisplayCanvas extends Canvas {
                         colorPosition[x][y] = colors[i];
                         break;
                     }
-
-                    //if it is in the mandelbrot set, color it black
-                    colorPosition[x][y] = Color.black;
                 }
             }
         }
+
         return colorPosition;
     }
 

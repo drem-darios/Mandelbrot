@@ -16,6 +16,11 @@ import java.awt.event.MouseListener;
 
 
 public class MandelbrotDisplay implements MouseListener, ActionListener {
+    public static final String DEFAULT_REAL_VALUE = "-0.4";
+    public static final String DEFAULT_VIEW_VALUE = "1.1";
+    public static final String DEFAULT_IMAGINARY_VALUE = "0";
+    public static final String DEFAULT_SEQUENCE_LENGTH_VALUE = "50";
+
     //makes a new window, canvas, and color
     private JFrame window;
     private DisplayCanvas canvas;
@@ -40,21 +45,24 @@ public class MandelbrotDisplay implements MouseListener, ActionListener {
     private static final String RESET_COMMAND_STRING = "Reset";
 
     public MandelbrotDisplay() {
+        init();
+    }
+
+    private void init() {
         JButton reset;
         JButton generate;
 
         //Labels for the text boxes. spaces are used to space out the labels correctly
-        JLabel Real = new JLabel("Real center          ");
-        JLabel Imag = new JLabel("Imaginary center");
-        JLabel View = new JLabel("View size               ");
-        JLabel SequLabel = new JLabel("Sequence Length");
+        JLabel realLabel = new JLabel("Real center          ");
+        JLabel imaginaryLabel = new JLabel("Imaginary center");
+        JLabel viewLabel = new JLabel("View size               ");
+        JLabel sequenceLengthLabel = new JLabel("Sequence Length");
 
         JLabel space = new JLabel("                        " +
                 "                                "); //space is used to center the generate button
 
         generate = new JButton(GENERATE_COMMAND_STRING);
         reset = new JButton(RESET_COMMAND_STRING);
-
 
         //set the window settings, creates a canvas and adds everything to the window
         window = new JFrame("Mandelbrot Set");
@@ -70,16 +78,16 @@ public class MandelbrotDisplay implements MouseListener, ActionListener {
         canvas.addMouseListener(this);
         window.add(canvas);
 
-        window.add(Real);
+        window.add(realLabel);
         window.add(realTxt);
 
-        window.add(View);
+        window.add(viewLabel);
         window.add(viewTxt);
 
-        window.add(Imag);
+        window.add(imaginaryLabel);
         window.add(imaginaryTxt);
 
-        window.add(SequLabel);
+        window.add(sequenceLengthLabel);
         window.add(sequenceLengthTxt);
         window.add(space);
 
@@ -89,19 +97,18 @@ public class MandelbrotDisplay implements MouseListener, ActionListener {
         generate.addActionListener(this);
         reset.addActionListener(this);
 
-        realTxt.setText("-0.4");
-        viewTxt.setText("1.1");
-        imaginaryTxt.setText("0");
-        sequenceLengthTxt.setText("50");
+        realTxt.setText(DEFAULT_REAL_VALUE);
+        imaginaryTxt.setText(DEFAULT_IMAGINARY_VALUE);
+        viewTxt.setText(DEFAULT_VIEW_VALUE);
+        sequenceLengthTxt.setText(DEFAULT_SEQUENCE_LENGTH_VALUE);
 
         window.setVisible(true);
 
         redraw();
     }
 
-    //if the mouse is clicked
+    @Override
     public void mouseClicked(MouseEvent e) {
-
         //gets the current location the mouse was clicked
         double xCurrent = e.getX();
         double yCurrent = e.getY();
@@ -128,26 +135,19 @@ public class MandelbrotDisplay implements MouseListener, ActionListener {
 
     }
 
-    public void mouseEntered(MouseEvent arg0) {
-    }
+    @Override public void mouseEntered(MouseEvent arg0) { }
+    @Override public void mouseExited(MouseEvent arg0) { }
+    @Override public void mousePressed(MouseEvent arg0) { }
+    @Override public void mouseReleased(MouseEvent arg0) { }
 
-    public void mouseExited(MouseEvent arg0) {
-    }
-
-    public void mousePressed(MouseEvent arg0) {
-    }
-
-    public void mouseReleased(MouseEvent arg0) {
-    }
-
-    //if the generate button was clicked
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equalsIgnoreCase(RESET_COMMAND_STRING)) {
 
-            realTxt.setText("-.4");
-            imaginaryTxt.setText("0");
-            viewTxt.setText("1.1");
-            sequenceLengthTxt.setText("50");
+            realTxt.setText(DEFAULT_REAL_VALUE);
+            imaginaryTxt.setText(DEFAULT_IMAGINARY_VALUE);
+            viewTxt.setText(DEFAULT_VIEW_VALUE);
+            sequenceLengthTxt.setText(DEFAULT_SEQUENCE_LENGTH_VALUE);
         }
 
         redraw();

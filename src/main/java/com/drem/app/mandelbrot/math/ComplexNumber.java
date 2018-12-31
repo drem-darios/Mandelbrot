@@ -32,7 +32,7 @@ public class ComplexNumber {
     }
 
     //the point of magnitude. this number will be square rooted to find if a point is in or out of the set
-    public double getPointMag(ComplexNumber c) {
+    public double getPointMag() {
         return this.real * this.real + this.imaginary * this.imaginary;
     }
 
